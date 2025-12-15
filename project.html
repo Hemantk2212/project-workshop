@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netflix Clone</title>
+<style>
+:root {
+    --primary-color: #e50914; /* Netflix Red */
+    --dark-color: #141414;
+    --light-color: #f4f4f4;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: #000;
+    color: #999;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* --- Utility Classes --- */
+.btn {
+    display: inline-block;
+    background: var(--primary-color);
+    color: #fff;
+    padding: 0.4rem 1.3rem;
+    font-size: 1rem;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    outline: none;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.45);
+    border-radius: 2px;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+.btn-rounded {
+    border-radius: 5px;
+}
+
+.btn-large {
+    font-size: 1.5rem;
+    padding: 0.8rem 1.8rem; /* Bigger button for CTA */
+    text-transform: uppercase;
+}
+
+/* --- Header / Showcase Section --- */
+.showcase {
+    width: 100%;
+    height: 100vh; /* Full Viewport Height */
+    position: relative;
+    background: url('https://assets.nflxext.com/ffe/siteui/vlv3/f841d4c7-10e1-40af-bcae-07a3f8dc141a/f6d7434e-d6de-4185-a6d4-c77a2d08737b/US-en-20220502-popsignuptwoweeks-perspective_alpha_website_medium.jpg') no-repeat center center/cover;
+}
+
+/* The Dark Overlay */
+.showcase::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background: rgba(0, 0, 0, 0.6); /* Darkens the image */
+    box-shadow: inset 120px 100px 250px #000000, inset -120px -100px 250px #000000; /* Vignette effect */
+}
+
+/* --- Navbar --- */
+.showcase .navbar {
+    position: relative;
+    z-index: 2;
+    height: 90px;
+    display: flex;
+    justify-content: space-between; /* Pushes Logo left, Button right */
+    align-items: center;
+    padding: 0 40px;
+}
+
+.showcase .logo {
+    width: 150px; /* Adjust logo size */
+}
+
+/* --- Hero Content --- */
+.showcase-content {
+    position: relative;
+    z-index: 2;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 9rem;
+    width: 65%;
+}
+
+.showcase-content h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin: 0 0 1rem;
+    color: #fff;
+    max-width: 640px;
+}
+
+.showcase-content h3 {
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 1rem;
+    font-weight: 400;
+}
+
+.showcase-content p {
+    font-size: 1.2rem;
+    color: #fff;
+    margin-bottom: 1.5rem;
+}
+
+/* --- Input Group (Email + Button) --- */
+.input-group {
+    display: flex;
+    width: 100%;
+    max-width: 700px;
+}
+
+.input-group input {
+    flex: 1; /* Takes up remaining space */
+    padding: 15px;
+    font-size: 1.2rem;
+    border: 1px solid #ccc;
+    border-radius: 2px 0 0 2px;
+}
+
+.input-group .btn {
+    border-radius: 0 2px 2px 0;
+    background-color: var(--primary-color);
+    font-size: 1.5rem;
+    padding: 0 30px;
+    border-left: none;
+}
+</style>
+</head>
+<body>
+
+    <header class="showcase">
+        <nav class="navbar">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Logonetflix.png" alt="Netflix Logo" class="logo">
+            <a href="#" class="btn btn-rounded">Sign In</a>
+        </nav>
+
+        <div class="showcase-content">
+            <h1>Unlimited movies, TV shows, and more.</h1>
+            <h3>Watch anywhere. Cancel anytime.</h3>
+            <p>Ready to watch? Enter your email to create or restart your membership.</p>
+            
+            <div class="input-group">
+                <input type="email" placeholder="Email address" required>
+                <button class="btn btn-large">Get Started &gt;</button>
+            </div>
+        </div>
+    </header>
+
+</body>
+</html>
