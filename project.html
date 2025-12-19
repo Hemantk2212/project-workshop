@@ -4,170 +4,223 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Netflix Clone</title>
-<style>
-:root {
-    --primary-color: #e50914; /* Netflix Red */
-    --dark-color: #141414;
-    --light-color: #f4f4f4;
-}
+    <style>
+        :root {
+            --primary-color: #e50914;
+            --dark-gray: #232323;
+        }
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
-body {
-    font-family: 'Arial', sans-serif;
-    background: #000;
-    color: #999;
-    -webkit-font-smoothing: antialiased;
-}
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background: #000;
+            color: #fff;
+            line-height: 1.4;
+        }
 
-/* --- Utility Classes --- */
-.btn {
-    display: inline-block;
-    background: var(--primary-color);
-    color: #fff;
-    padding: 0.4rem 1.3rem;
-    font-size: 1rem;
-    text-align: center;
-    border: none;
-    cursor: pointer;
-    text-decoration: none;
-    outline: none;
-    box-shadow: 0 1px 0 rgba(0,0,0,0.45);
-    border-radius: 2px;
-}
+        .showcase {
+            width: 100%;
+            height: 700px;
+            position: relative;
+            background: url('https://assets.nflxext.com/ffe/siteui/vlv3/f841d4c7-10e1-40af-bcae-07a3f8dc141a/f6d7434e-d6de-4185-a6d4-c77a2d08737b/US-en-20220502-popsignuptwoweeks-perspective_alpha_website_medium.jpg') no-repeat center center/cover;
+            border-bottom: 8px solid var(--dark-gray);
+        }
 
-.btn:hover {
-    opacity: 0.9;
-}
+        .showcase::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            background-image: linear-gradient(to top, rgba(0,0,0,0.8) 0, rgba(0,0,0,0) 60%, rgba(0,0,0,0.8) 100%);
+        }
 
-.btn-rounded {
-    border-radius: 5px;
-}
+        .navbar {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 5%;
+        }
 
-.btn-large {
-    font-size: 1.5rem;
-    padding: 0.8rem 1.8rem; /* Bigger button for CTA */
-    text-transform: uppercase;
-}
+        .logo { width: 150px; }
 
-/* --- Header / Showcase Section --- */
-.showcase {
-    width: 100%;
-    height: 100vh; /* Full Viewport Height */
-    position: relative;
-    background: url('https://assets.nflxext.com/ffe/siteui/vlv3/f841d4c7-10e1-40af-bcae-07a3f8dc141a/f6d7434e-d6de-4185-a6d4-c77a2d08737b/US-en-20220502-popsignuptwoweeks-perspective_alpha_website_medium.jpg') no-repeat center center/cover;
-}
+        .showcase-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            margin-top: 100px;
+            padding: 0 20px;
+        }
 
-/* The Dark Overlay */
-.showcase::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    background: rgba(0, 0, 0, 0.6); /* Darkens the image */
-    box-shadow: inset 120px 100px 250px #000000, inset -120px -100px 250px #000000; /* Vignette effect */
-}
+        .showcase-content h1 { font-size: 3rem; font-weight: 900; margin-bottom: 1rem; }
+        .showcase-content h2 { font-size: 1.5rem; font-weight: 400; margin-bottom: 1.5rem; }
 
-/* --- Navbar --- */
-.showcase .navbar {
-    position: relative;
-    z-index: 2;
-    height: 90px;
-    display: flex;
-    justify-content: space-between; /* Pushes Logo left, Button right */
-    align-items: center;
-    padding: 0 40px;
-}
+        .style-cards {
+            padding: 70px 5%;
+            border-bottom: 8px solid var(--dark-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-.showcase .logo {
-    width: 150px; /* Adjust logo size */
-}
+        .card-container {
+            display: flex;
+            max-width: 1100px;
+            align-items: center;
+            gap: 20px;
+        }
 
-/* --- Hero Content --- */
-.showcase-content {
-    position: relative;
-    z-index: 2;
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    margin-top: 9rem;
-    width: 65%;
-}
+        .card-text { flex: 1; }
+        .card-text h1 { font-size: 3rem; margin-bottom: 1rem; }
+        .card-text h2 { font-size: 1.5rem; font-weight: 400; }
 
-.showcase-content h1 {
-    font-size: 3.5rem;
-    font-weight: 700;
-    margin: 0 0 1rem;
-    color: #fff;
-    max-width: 640px;
-}
+        .card-img-container {
+            flex: 1;
+            position: relative;
+        }
 
-.showcase-content h3 {
-    font-size: 1.5rem;
-    color: #fff;
-    margin-bottom: 1rem;
-    font-weight: 400;
-}
+        .card-img-container img {
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
 
-.showcase-content p {
-    font-size: 1.2rem;
-    color: #fff;
-    margin-bottom: 1.5rem;
-}
 
-/* --- Input Group (Email + Button) --- */
-.input-group {
-    display: flex;
-    width: 100%;
-    max-width: 700px;
-}
+        .faq {
+            padding: 70px 5%;
+            text-align: center;
+            border-bottom: 8px solid var(--dark-gray);
+        }
 
-.input-group input {
-    flex: 1; /* Takes up remaining space */
-    padding: 15px;
-    font-size: 1.2rem;
-    border: 1px solid #ccc;
-    border-radius: 2px 0 0 2px;
-}
+        .faq h1 { font-size: 3rem; margin-bottom: 40px; }
 
-.input-group .btn {
-    border-radius: 0 2px 2px 0;
-    background-color: var(--primary-color);
-    font-size: 1.5rem;
-    padding: 0 30px;
-    border-left: none;
-}
-</style>
+        .accordion {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .accordion-item {
+            background: #303030;
+            margin-bottom: 8px;
+        }
+
+        .accordion-link {
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        
+        .email-form {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 5px;
+        }
+
+        .email-form input {
+            padding: 15px;
+            width: 400px;
+            border-radius: 4px;
+            border: 1px solid #8c8c8c;
+            background: rgba(0,0,0,0.7);
+            color: #fff;
+        }
+
+        .btn-red {
+            background: var(--primary-color);
+            color: #fff;
+            padding: 15px 30px;
+            font-size: 1.5rem;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        
+        @media (max-width: 960px) {
+            .card-container { flex-direction: column; text-align: center; }
+            .showcase-content h1 { font-size: 2rem; }
+            .email-form { flex-direction: column; align-items: center; }
+            .email-form input { width: 90%; margin-bottom: 10px; }
+        }
+    </style>
 </head>
 <body>
 
     <header class="showcase">
         <nav class="navbar">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Logonetflix.png" alt="Netflix Logo" class="logo">
-            <a href="#" class="btn btn-rounded">Sign In</a>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="Netflix" class="logo">
+            <a href="#" class="btn-red" style="font-size: 0.9rem; padding: 7px 17px;">Sign In</a>
         </nav>
 
         <div class="showcase-content">
             <h1>Unlimited movies, TV shows, and more.</h1>
-            <h3>Watch anywhere. Cancel anytime.</h3>
+            <h2>Watch anywhere. Cancel anytime.</h2>
             <p>Ready to watch? Enter your email to create or restart your membership.</p>
-            
-            <div class="input-group">
-                <input type="email" placeholder="Email address" required>
-                <button class="btn btn-large">Get Started &gt;</button>
-            </div>
+            <form class="email-form">
+                <input type="email" placeholder="Email address">
+                <button class="btn-red">Get Started &gt;</button>
+            </form>
         </div>
     </header>
+
+    <section class="style-cards">
+        <div class="card-container">
+            <div class="card-text">
+                <h1>Enjoy on your TV.</h1>
+                <h2>Watch on Smart TVs, Playstation, Xbox, Chromecast, Apple TV, Blu-ray players, and more.</h2>
+            </div>
+            <div class="card-img-container">
+                <img src="https://assets.nflxext.com/ffe/siteui/acquisition/ourStory/fuji/desktop/tv.png" alt="TV">
+            </div>
+        </div>
+    </section>
+
+    <section class="style-cards">
+        <div class="card-container" style="flex-direction: row-reverse;">
+            <div class="card-text">
+                <h1>Download your shows to watch offline.</h1>
+                <h2>Save your favorites easily and always have something to watch.</h2>
+            </div>
+            <div class="card-img-container">
+                <img src="https://assets.nflxext.com/ffe/siteui/acquisition/ourStory/fuji/desktop/mobile-0819.jpg" alt="Mobile">
+            </div>
+        </div>
+    </section>
+
+    <section class="faq">
+        <h1>Frequently Asked Questions</h1>
+        <div class="accordion">
+            <div class="accordion-item">
+                <div class="accordion-link">
+                    What is Netflix? <span>+</span>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-link">
+                    How much does Netflix cost? <span>+</span>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-link">
+                    Where can I watch? <span>+</span>
+                </div>
+            </div>
+        </div>
+        <p style="margin-top: 40px; font-size: 1.2rem;">Ready to watch? Enter your email to create or restart your membership.</p>
+        <form class="email-form">
+            <input type="email" placeholder="Email address">
+            <button class="btn-red">Get Started &gt;</button>
+        </form>
+    </section>
 
 </body>
 </html>
